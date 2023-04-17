@@ -21,4 +21,7 @@ public class Answer extends Auditable {
     private int score;
     //user_id, question_id 두 개의 필드만 추가하면 된다.
 
+    /*@ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private*/
 }
