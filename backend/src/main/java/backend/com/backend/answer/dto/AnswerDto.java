@@ -7,4 +7,8 @@ public class AnswerDto {
     public static class Post {
 
     }
+
+    public static class Patch {
+
+    }
 }
