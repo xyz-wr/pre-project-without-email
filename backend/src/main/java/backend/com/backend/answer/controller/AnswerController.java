@@ -55,4 +55,9 @@ public class AnswerController {
 
 >>>>>>> upstream/be_dev
     }
+
+    @PatchMapping("/{answer-id}")
+    public ResponseEntity patchAnswer() {
+
+    }
 }
