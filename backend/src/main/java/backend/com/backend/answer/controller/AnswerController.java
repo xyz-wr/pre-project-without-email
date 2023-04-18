@@ -30,6 +30,11 @@ public class AnswerController {
         this.mapper = mapper;
     }
 
+<<<<<<< HEAD
+    @GetMapping("/")
+    public ResponseEntity getAnswers() {
+        return null;
+=======
     @PostMapping
     public ResponseEntity postAnswer(@RequestBody AnswerDto.Post requestBody) {
         Answer answer = mapper.answerPostDtoToAnswer(requestBody);
@@ -48,5 +53,6 @@ public class AnswerController {
         Page<Answer> pageAnswers = answerService.findAnswers(questionId,page - 1, size, sortOption);
         List<Answer> Answers = pageAnswers.getContent();
 
+>>>>>>> upstream/be_dev
     }
 }
