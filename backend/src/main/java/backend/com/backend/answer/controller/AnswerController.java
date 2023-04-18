@@ -49,4 +49,9 @@ public class AnswerController {
         List<Answer> Answers = pageAnswers.getContent();
 
     }
+
+    @PatchMapping("/{answer-id}")
+    public ResponseEntity patchAnswer() {
+
+    }
 }
