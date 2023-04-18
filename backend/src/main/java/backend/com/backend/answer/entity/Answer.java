@@ -8,11 +8,11 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@Entity
+@Entity(org.hibernate.annotations.CascadeType.)
 public class Answer extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long answerId;
+    private Long id;
 
     @Column(nullable = false)
     private String content;
