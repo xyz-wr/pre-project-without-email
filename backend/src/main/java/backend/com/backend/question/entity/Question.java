@@ -1,11 +1,14 @@
 package backend.com.backend.question.entity;
 
+import backend.com.backend.answer.entity.Answer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -25,5 +28,15 @@ public class Question {
     @Column(nullable = false)
     private String details;
 
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    //질문 삭제시 그에 딸린 답변들도 모두 삭제하기 위해 cascade를 지정해놓음
+    private List<Answer> answers = new ArrayList<>();
+
+    public void setAnswer(Answer answer) {
+        answers.add(answer);
+        if(answer.getQuestion() != this){
+            answer.setQuestion(this);
+        }
+    }
 
 }

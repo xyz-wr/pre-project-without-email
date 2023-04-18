@@ -5,6 +5,7 @@ import javax.validation.constraints.Email;
 
 import backend.com.backend.answer.entity.Answer;
 import backend.com.backend.audit.Auditable;
+import backend.com.backend.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
