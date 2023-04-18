@@ -13,6 +13,7 @@ public class AnswerController {
     public ResponseEntity postAnswer() {
         return null;
     }
+
     @GetMapping("/")
     public ResponseEntity getAnswers() {
         return null;
