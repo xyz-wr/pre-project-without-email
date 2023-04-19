@@ -1,10 +1,13 @@
 package backend.com.backend.question.dto;
 
+import backend.com.backend.answer.entity.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 public class QuestionDto {
     @Getter
@@ -45,12 +48,13 @@ public class QuestionDto {
     }
 
     @Getter
-    @AllArgsConstructor
+    @Setter
     public static class Response {
         private Long id;
         private String title;
         private String body;
         private String details;
+        private List<Answer> answers;
 
     }
 }

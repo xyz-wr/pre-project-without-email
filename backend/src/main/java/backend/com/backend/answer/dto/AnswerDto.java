@@ -20,7 +20,7 @@ public class AnswerDto {
 
     }
     @Getter
-    @AllArgsConstructor
+    @Setter
     public static class Response {
 
     }

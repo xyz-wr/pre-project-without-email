@@ -1,19 +1,21 @@
 package backend.com.backend.user.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 
 import backend.com.backend.answer.entity.Answer;
 import backend.com.backend.audit.Auditable;
+import backend.com.backend.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class User extends Auditable {
+public class Member extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,16 +34,16 @@ public class User extends Auditable {
     private UserStatus user_status = UserStatus.USER_ACTIVE;
 
     @OneToMany
-    private Question question;
-
-    @OneToOne
-    private Answer answer;
+    private List<Question> question;
 
     @OneToMany
-    private Comment comment;
+    private List<Answer> answer;
 
-    @OneToMany
-    private User_anal useranal;
+    /*@OneToMany
+    private Comment comment;*/
+
+    /*@OneToMany
+    private User_anal useranal;*/
 
     public enum UserStatus{
         USER_ACTIVE("활동 중"),
