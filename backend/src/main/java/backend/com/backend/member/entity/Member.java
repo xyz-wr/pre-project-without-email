@@ -3,11 +3,14 @@ package backend.com.backend.member.entity;
 import javax.persistence.*;
 
 
-
+import backend.com.backend.answer.entity.Answer;
 import backend.com.backend.audit.Auditable;
+import backend.com.backend.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,8 +38,6 @@ public class Member extends Auditable {
     @Enumerated(value=EnumType.STRING)
     @Column(nullable = false)
     private UserStatus user_status = UserStatus.USER_ACTIVE;
-
-
 //    @OneToMany(mappedBy = "user")
 //    private List<Question> question;
 //
@@ -45,7 +46,17 @@ public class Member extends Auditable {
 //
 //    @OneToMany(mappedBy ="user")
 //    private List<Comment> comment;
+    @OneToMany
+    private List<Question> question;
 
+    @OneToMany
+    private List<Answer> answer;
+
+    /*@OneToMany
+    private Comment comment;*/
+
+    /*@OneToMany
+    private User_anal useranal;*/
     public enum UserStatus{
         USER_ACTIVE("활동 중"),
         USER_SLEEP("휴면 상태"),

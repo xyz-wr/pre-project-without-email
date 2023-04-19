@@ -1,14 +1,18 @@
 package backend.com.backend.answer.entity;
 
 import backend.com.backend.audit.Auditable;
+import backend.com.backend.member.entity.Member;
+import backend.com.backend.question.entity.Question;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
-@Entity(org.hibernate.annotations.CascadeType.)
+@Entity
+@NoArgsConstructor
 public class Answer extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,14 +21,12 @@ public class Answer extends Auditable {
     @Column(nullable = false)
     private String content;
 
-    @Column
-    private int score;
-
     @ManyToOne
     @JoinColumn(name = "USER_ID")
-    private User user;
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
+
 }
