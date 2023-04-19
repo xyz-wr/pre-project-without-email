@@ -21,9 +21,6 @@ public class Answer extends Auditable {
     @Column(nullable = false)
     private String content;
 
-    @Column
-    private int score;
-
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -31,4 +28,5 @@ public class Answer extends Auditable {
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
+
 }

@@ -1,20 +1,16 @@
 package backend.com.backend.user.dto;
 
-import backend.com.backend.user.entity.User;
-import lombok.Builder;
+import backend.com.backend.user.entity.Member;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@Builder
-public class UserResponseDto {
+@Setter
+public class MemberResponseDto {
     private String email;
-    private String full_name;
     private String display_name;
-    private String password;
     private String location;
     private int total_questions;
     private int total_answers;
-    private User.UserStatus user_status;
-
 
 }

@@ -1,6 +1,7 @@
 package backend.com.backend.question.entity;
 
 import backend.com.backend.answer.entity.Answer;
+import backend.com.backend.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Question {
+public class Question extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,7 +29,7 @@ public class Question {
     @Column(nullable = false)
     private String details;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "question")
     //질문 삭제시 그에 딸린 답변들도 모두 삭제하기 위해 cascade를 지정해놓음
     private List<Answer> answers = new ArrayList<>();
 
