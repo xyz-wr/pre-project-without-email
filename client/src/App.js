@@ -15,7 +15,7 @@ import Footer from './components/footer/Footer';
 
 const Container = styled.div`
   width: 100vw;
-  height: 1000px;
+  /* height: 1000px; */
   background-color: white;
   display: flex;
   justify-content: center;
