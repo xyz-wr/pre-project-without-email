@@ -20,7 +20,7 @@ const FooterWrapper = styled.footer`
 `;
 
 const FooterLogo = styled.div`
-  margin: -12px 0px 32px;
+  /* margin: -12px 0px 32px; */
   width: 32px;
   heigh: 37px;
   cursor: pointer;
@@ -43,7 +43,7 @@ const FooterSubMenu = styled.ul`
   list-style: none;
   > li {
     font-weight: normal;
-    margin-left: -35px;
+    /* margin-left: -35px; */
     list-style: none;
     margin-bottom: 8px;
     cursor: pointer;
@@ -63,7 +63,7 @@ const LastSubBox = styled.div`
 `;
 
 const LastBoxMenu = styled.ul`
-  margin-left: -35px;
+  /* margin-left: -35px; */
   font-weight: normal;
   list-style: none;
   display: flex;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ReactComponent as Earth } from '../../assets/ic-earth.svg';
 import { ReactComponent as Star } from '../../assets/start.svg';
 import { ReactComponent as Team } from '../../assets/team_img.svg';
+import ItemList from './ItemList';
 
 const Container = styled.div`
   width: 164px;
@@ -20,43 +21,28 @@ const InnerContainer = styled.div`
   color: #525960;
 `;
 
-const ItemList = styled.div`
+const StyledButton = styled.button`
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
-  p {
+  align-items: center;
+  gap: 0.4rem;
+  border: none;
+  padding: 10px;
+  background-color: white;
+  color: #525960;
+  text-align: left;
+
+  &:active {
     padding: 10px;
-    margin: 6px;
-  }
-  button {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    border: none;
-    padding: 10px;
-    background-color: white;
-    text-align: left;
-    &:active {
-      padding: 10px;
-      background-color: #f1f2f3;
-      font-weight: bold;
-      /* margin: 0px; */
-      border-right: 3px solid #f48024;
-      .earth_icon {
-        path {
-          fill: black;
-        }
+    background-color: #f1f2f3;
+    font-weight: bold;
+    /* margin: 0px; */
+    border-right: 3px solid #f48024;
+    .earth_icon {
+      path {
+        fill: black;
       }
     }
-  }
-  .star_icon {
-    padding: 0px 2px;
-    path {
-      fill: #f48024;
-    }
-  }
-  .pl {
-    padding-left: 35px;
   }
 `;
 
@@ -76,29 +62,28 @@ const WhyText = styled.div`
 `;
 
 function Aside() {
+  const menus = ['Tags', 'Users', 'Companies'];
   return (
     <Container>
       <InnerContainer>
-        <ItemList>
+        <ItemList title="Home" />
+        {/* <ItemList></ItemList>
           <p>Home</p>
-        </ItemList>
-        <ItemList>
-          <p>PUBLIC</p>
-          <button>
+        </ItemList> */}
+        <ItemList title="PUBLIC">
+          <StyledButton>
             <Earth className="earth_icon" /> Questions
-          </button>
-          <button className="pl">Tags</button>
-          <button className="pl">Users</button>
-          <button className="pl">Companies</button>
+          </StyledButton>
+          {menus.map(menu => (
+            <StyledButton className="pl">{menu}</StyledButton>
+          ))}
         </ItemList>
-        <ItemList>
-          <p>COLLECTIVES</p>
+        <ItemList title="COLLECTIVES">
           <div>
             <Star className="star_icon" /> Explore Collectives
           </div>
         </ItemList>
-        <ItemList>
-          <p>TEAMS</p>
+        <ItemList title="TEAMS">
           <SideInnerBox>
             <div>
               <b>Stack Overflow for Teams</b> - Start collaborating and sharing
