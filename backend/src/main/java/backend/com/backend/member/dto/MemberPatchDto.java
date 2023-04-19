@@ -1,12 +1,11 @@
-package backend.com.backend.user.dto;
+package backend.com.backend.member.dto;
 
-import backend.com.backend.user.entity.User;
+import backend.com.backend.member.entity.Member;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-public class UserPatchDto {
-    private Long userid;
+public class MemberPatchDto {
+    private long userid;
     private String email;
     private String full_name;
     private String display_name;
@@ -14,7 +13,7 @@ public class UserPatchDto {
     private String location;
     private int total_questions;
     private int total_answers;
-    private User.UserStatus user_status;
+    private Member.UserStatus user_status;
 
     public void setUserid(Long userid) {
         this.userid = userid;

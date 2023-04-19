@@ -1,11 +1,12 @@
-package backend.com.backend.user.dto;
+package backend.com.backend.member.dto;
 
-import backend.com.backend.user.entity.User;
+import backend.com.backend.member.entity.Member;
+import lombok.Getter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
-public class UserPostDto {
+@Getter
+public class MemberPostDto {
     @NotBlank
     @Email
     private String email;
@@ -17,5 +18,5 @@ public class UserPostDto {
     private String location;
     private int total_questions;
     private int total_answers;
-    private User.UserStatus user_status;
+    private Member.UserStatus user_status;
 }
