@@ -1,6 +1,7 @@
-package backend.com.backend.user.entity;
+package backend.com.backend.member.entity;
 
 import javax.persistence.*;
+
 
 import backend.com.backend.answer.entity.Answer;
 import backend.com.backend.audit.Auditable;
@@ -18,21 +19,33 @@ import java.util.List;
 public class Member extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     @Column(nullable = false, updatable = false, unique = true)
     private String email;
     @Column(nullable = false)
-    private String full_name;
+    private String fullName;
     @Column(nullable = false)
-    private String display_name;
+    private String displayName;
     @Column(nullable = false, updatable = false)
     private String password;
     @Column(updatable = false)
     private String location;
+    @Column(nullable = false)
     private int total_questions;
+    @Column(nullable = false)
     private int total_answers;
-    private UserStatus user_status = UserStatus.USER_ACTIVE;
 
+    @Enumerated(value=EnumType.STRING)
+    @Column(nullable = false)
+    private UserStatus user_status = UserStatus.USER_ACTIVE;
+//    @OneToMany(mappedBy = "user")
+//    private List<Question> question;
+//
+//    @OneToMany(mappedBy = "user")
+//    private List<Answer> answer;
+//
+//    @OneToMany(mappedBy ="user")
+//    private List<Comment> comment;
     @OneToMany
     private List<Question> question;
 
@@ -44,7 +57,6 @@ public class Member extends Auditable {
 
     /*@OneToMany
     private User_anal useranal;*/
-
     public enum UserStatus{
         USER_ACTIVE("활동 중"),
         USER_SLEEP("휴면 상태"),

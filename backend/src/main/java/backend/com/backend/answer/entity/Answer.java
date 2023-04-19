@@ -1,8 +1,8 @@
 package backend.com.backend.answer.entity;
 
 import backend.com.backend.audit.Auditable;
+import backend.com.backend.member.entity.Member;
 import backend.com.backend.question.entity.Question;
-import backend.com.backend.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +23,7 @@ public class Answer extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
-    private User user;
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
