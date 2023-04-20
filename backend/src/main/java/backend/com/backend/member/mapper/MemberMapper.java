@@ -8,9 +8,9 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
-    Member UserPostDtoToUser(MemberPostDto memberPostDto);
-    Member UserPatchDtoToUser(MemberPatchDto memberPatchDto);
-    MemberResponseDto UserToResponseDto(Member member);
+    Member MemberPostDtoToMember(MemberPostDto memberPostDto);
+    Member MemberPatchDtoToMember(MemberPatchDto memberPatchDto);
+    MemberResponseDto MemberToResponseDto(Member member);
     //추후에 물어보자
-//    List<UserResponseDto> usersToUserResponseDtos(List<User> users);
+//    List<MemberResponseDto> MembersToMemberResponseDtos(List<User> users);
 }

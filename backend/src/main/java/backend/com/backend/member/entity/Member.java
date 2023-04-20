@@ -33,7 +33,7 @@ public class Member extends Auditable {
 
     @Enumerated(value=EnumType.STRING)
     @Column(nullable = false)
-    private UserStatus user_status = UserStatus.USER_ACTIVE;
+    private MemberStatus member_status = MemberStatus.MEMBER_ACTIVE;
 //    @OneToMany(mappedBy = "user")
 //    private List<Question> question;
 //
@@ -53,14 +53,14 @@ public class Member extends Auditable {
 
     /*@OneToMany
     private User_anal useranal;*/
-    public enum UserStatus{
-        USER_ACTIVE("활동 중"),
-        USER_SLEEP("휴면 상태"),
-        USER_QUIT("탈퇴 상태");
+    public enum MemberStatus{
+        MEMBER_ACTIVE("활동 중"),
+        MEMBER_SLEEP("휴면 상태"),
+        MEMBER_QUIT("탈퇴 상태");
         @Getter
         private String statusDesciption;
 
-        UserStatus(String statusDesciption) {
+        MemberStatus(String statusDesciption) {
             this.statusDesciption = statusDesciption;
         }
     }

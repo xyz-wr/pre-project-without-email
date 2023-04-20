@@ -1,5 +1,7 @@
 package backend.com.backend.member.service;
 
+import backend.com.backend.exception.BusinessLogicException;
+import backend.com.backend.exception.ExceptionCode;
 import backend.com.backend.member.entity.Member;
 import backend.com.backend.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
@@ -16,7 +18,7 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public Member createUser(Member member){
+    public Member createMember(Member member){
         //이메일 확인
         verifyExistsEmail(member.getEmail());
         return  memberRepository.save(member);
@@ -24,9 +26,9 @@ public class MemberService {
 
 
 
-    public Member updateUser(Member member){//추가 해야함
+    public Member updateMember(Member member){//추가 해야함
         //유저 존재 유무 확인
-        Member finduser = findVerifiedUser(member.getId());
+        Member finduser = findVerifiedMember(member.getId());
 
         Optional.ofNullable(member.getFullName())
                 .ifPresent(fullName -> finduser.setFullName(fullName));
@@ -36,36 +38,37 @@ public class MemberService {
                 .ifPresent(location->finduser.setLocation(location));
         Optional.ofNullable(member.getDisplayName())
                 .ifPresent(displayName->finduser.setDisplayName(displayName));
-        Optional.ofNullable(member.getUser_status())
-                .ifPresent(userStatus->finduser.setUser_status(userStatus));
+        Optional.ofNullable(member.getMember_status())
+                .ifPresent(userStatus->finduser.setMember_status(userStatus));
 
         //추후 수정
 //        finduser.getModifiedAt()
         return memberRepository.save(finduser);
 
     }
-    public Member findUser(long userId){
+    public Member findMember(long userId){
 
-        return findVerifiedUser(userId);
+        return findVerifiedMember(userId);
     }
-    public Page<Member> findUsers(int page, int size){
+    public Page<Member> findMembers(int page, int size){
         return memberRepository.findAll(PageRequest.of(page,size, Sort.by("Id").descending()));
     }
-    public Member deleteUser(long userId){
-        Member finduser = findVerifiedUser(userId);
-        finduser.setUser_status(Member.UserStatus.USER_QUIT);
+    public Member deleteMember(long userId){
+        Member finduser = findVerifiedMember(userId);
+        finduser.setMember_status(Member.MemberStatus.MEMBER_QUIT);
         return finduser;
     }
-    public Member findVerifiedUser(long userId){
-        Optional<Member> optionalUser = memberRepository.findById(userId);
+    public Member findVerifiedMember(long memberId){
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
         //예외 처리 구현하면 추후 수정해야함.
-        Member findMember = optionalUser.orElseThrow(IllegalArgumentException::new);
+        Member findMember = optionalMember.orElseThrow(()->
+                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
     private void verifyExistsEmail(String email) {
-        Optional<Member> user = memberRepository.findByEmail(email);
-        if (user.isPresent())
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if (member.isPresent())
             //예외 처리 구현하면 추후 수정해야함.
-            throw new RuntimeException("email exists");
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 }
