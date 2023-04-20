@@ -30,10 +30,6 @@ public class Member extends Auditable {
     private String password;
     @Column(updatable = false)
     private String location;
-    @Column(nullable = false)
-    private int total_questions;
-    @Column(nullable = false)
-    private int total_answers;
 
     @Enumerated(value=EnumType.STRING)
     @Column(nullable = false)

@@ -1,5 +1,6 @@
 package backend.com.backend.question.controller;
 
+import backend.com.backend.answer.controller.AnswerController;
 import backend.com.backend.answer.dto.AnswerDto;
 import backend.com.backend.answer.entity.Answer;
 import backend.com.backend.answer.mapper.AnswerMapper;
@@ -31,15 +32,13 @@ import static java.util.Comparator.comparing;
 public class QuestionController {
     private final static String QUESTION_DEFAULT_URL = "/api1/questions";
     private final QuestionService questionService;
-    private final AnswerService answerService;
     private final QuestionMapper questionMapper;
-    private final AnswerMapper answerMapper;
+    private final AnswerController answerController;
 
-    public QuestionController(QuestionService questionService, AnswerService answerService, QuestionMapper questionMapper, AnswerMapper answerMapper) {
+    public QuestionController(QuestionService questionService, QuestionMapper questionMapper, AnswerController answerController) {
         this.questionService = questionService;
-        this.answerService = answerService;
         this.questionMapper = questionMapper;
-        this.answerMapper = answerMapper;
+        this.answerController = answerController;
     }
 
     @PostMapping
@@ -68,56 +67,16 @@ public class QuestionController {
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId,
                                       @Positive @RequestParam(defaultValue = "1") int page,
-                                      @Positive @RequestParam(defaultValue = "30") int size,
+                                      @Positive @RequestParam(defaultValue = "3") int size,
                                       @RequestParam(required = false) String sortOption) {
         Question question = questionService.findQuestion(questionId);
-        return bySortOption(questionId, page, size, sortOption, question);
+        return answerController.bySortOption(questionId, page, size, sortOption, question);
         //질문컨트롤러에 getQuestion메소드 내부에서 위 로직으로 실행해야 할 듯해.
         //일단 질문이 품고 있는 답변리스트의 size()를 재서 0이면 그냥 response 리턴하면 될테고
         // 0 초과이면 multi리스폰스로 내보내서 질문 한 개에 답변 리스트들을 stream으로 구성해보면 좋겠지
         // postman
     }
 
-    private ResponseEntity<?> bySortOption(long questionId, int page, int size, String sortOption, Question question) {
-        QuestionDto.Response questionResponse = questionMapper.questionToQuestionResponseDto(question);
-
-        if(question.getAnswers().size() == 0) {
-            return new ResponseEntity<>(questionResponse, HttpStatus.OK);
-        }
-        else {
-            if(sortOption == null){
-                List<Answer> answers = answerService.findAnswers(questionId);
-                Page<Answer> pageAnswers = answerService.makePageObject(page -1, size, answers);
-                List<AnswerDto.Response> answerResponses =
-                        answers.stream()
-                                .sorted(comparing(Answer::getId).reversed())
-                                .map(answer -> answerMapper.answerToAnswerResponseDto(answer))
-                                .collect(Collectors.toList());
-                return new ResponseEntity<>(new QuestionAnswersResponseDto<>(questionResponse, answerMapper.answersToAnswerResponseDtos(answers), pageAnswers), HttpStatus.OK);
-            }
-
-            else if(sortOption.equals("newest")){
-                List<Answer> answers = answerService.findAnswers(questionId);
-                Page<Answer> pageAnswers = answerService.makePageObject(page -1, size, answers);
-                List<AnswerDto.Response> answerResponses =
-                        answers.stream()
-                                .sorted(comparing(Answer::getId).reversed())
-                                .map(answer -> answerMapper.answerToAnswerResponseDto(answer))
-                                .collect(Collectors.toList());
-                return new ResponseEntity<>(new QuestionAnswersResponseDto<>(questionResponse, answerMapper.answersToAnswerResponseDtos(answers), pageAnswers), HttpStatus.OK);
-            }
-            else if(sortOption.equals("oldest")){
-                List<Answer> answers = answerService.findAnswers(questionId);
-                Page<Answer> pageAnswers = answerService.makePageObject(page -1, size, answers);
-                List<AnswerDto.Response> answerResponses =
-                        answers.stream()
-                                .map(answer -> answerMapper.answerToAnswerResponseDto(answer))
-                                .collect(Collectors.toList());
-                return new ResponseEntity<>(new QuestionAnswersResponseDto<>(questionResponse, answerMapper.answersToAnswerResponseDtos(answers), pageAnswers), HttpStatus.OK);
-            }
-        }
-        return new ResponseEntity<>(questionResponse, HttpStatus.OK);
-    }
 
     @GetMapping
     public ResponseEntity getQuestions() {
