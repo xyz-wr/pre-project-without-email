@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
     Answer answerPostDtoToAnswer(AnswerDto.Post requestBody);
+    Answer answerPatchDtoToAnswer(AnswerDto.Patch requestBody);
     AnswerDto.Response answerToAnswerResponseDto(Answer answer);
     List<AnswerDto.Response> answersToAnswerResponseDtos(List<Answer> answers);
 }

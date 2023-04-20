@@ -6,7 +6,7 @@ import backend.com.backend.member.dto.MemberResponseDto;
 import backend.com.backend.member.entity.Member;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface MemberMapper {
     Member UserPostDtoToUser(MemberPostDto memberPostDto);
     Member UserPatchDtoToUser(MemberPatchDto memberPatchDto);

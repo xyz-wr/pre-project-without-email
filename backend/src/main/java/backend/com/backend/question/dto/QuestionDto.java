@@ -1,6 +1,8 @@
 package backend.com.backend.question.dto;
 
+import backend.com.backend.answer.dto.AnswerDto;
 import backend.com.backend.answer.entity.Answer;
+import backend.com.backend.response.PageInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,7 +56,8 @@ public class QuestionDto {
         private String title;
         private String body;
         private String details;
-        private List<Answer> answers;
+        private List<AnswerDto.Response> answers;
+        private List<PageInfo> pageInfo;
 
     }
 }

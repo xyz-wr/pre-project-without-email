@@ -5,9 +5,10 @@ import backend.com.backend.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Service
 public class MemberService {
     private final MemberRepository memberRepository;
 
@@ -33,8 +34,8 @@ public class MemberService {
                 .ifPresent(displayName->finduser.setDisplayName(displayName));
         Optional.ofNullable(member.getLocation())
                 .ifPresent(location->finduser.setLocation(location));
-        Optional.ofNullable(member.getDisplay_name())
-                .ifPresent(displayName->finduser.setDisplay_name(displayName));
+        Optional.ofNullable(member.getDisplayName())
+                .ifPresent(displayName->finduser.setDisplayName(displayName));
         Optional.ofNullable(member.getUser_status())
                 .ifPresent(userStatus->finduser.setUser_status(userStatus));
 
