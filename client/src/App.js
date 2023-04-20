@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import styled from 'styled-components';
 
 import Home from './pages/Home';
+import LogIn from './pages/LogIn';
 // import { StyledBody, AppContainer, StyledMain } from './styles/StyledApp';
 
 // import RightSideBar from './components/RightSideBar';
@@ -20,6 +21,7 @@ function App() {
         <Route path="/tags" element={<Tags />} />
         <Route path="/users" element={<Users />} />
         <Route path="/companies" element={<Companies />} /> */}
+        <Route path="/login" element={<LogIn />} />
       </Routes>
     </BrowserRouter>
   );

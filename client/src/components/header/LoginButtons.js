@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -31,9 +32,11 @@ const SignUpButton = styled.button`
 `;
 
 function LoginButtons() {
+  const navigate = useNavigate();
+
   return (
     <Container>
-      <LoginButton>Log in</LoginButton>
+      <LoginButton onClick={() => navigate('/login')}>Log in</LoginButton>
       <SignUpButton>Sign Up</SignUpButton>
     </Container>
   );
