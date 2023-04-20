@@ -3,13 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
-// import { StyledBody, AppContainer, StyledMain } from './styles/StyledApp';
-
-// import RightSideBar from './components/RightSideBar';
-// import Questions from './pages/Questions';
-// import Tags from './pages/Tags';
-// import Users from './pages/Users';
-// import Companies from './pages/Companies';
+import Questions from './pages/Questions';
+import Question from './pages/Question';
+import AskQuestion from './pages/AskQuestion';
 
 function App() {
   return (
@@ -17,11 +13,10 @@ function App() {
       {/* <Home /> */}
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/questions" element={<Questions />} />
-        <Route path="/tags" element={<Tags />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/companies" element={<Companies />} /> */}
         <Route path="/login" element={<LogIn />} />
+        <Route path="/questions" element={<Questions />} />
+        <Route path="/questions/:id" element={<Question />} />
+        <Route path="/questions/ask" element={<AskQuestion />} />
       </Routes>
     </BrowserRouter>
   );
