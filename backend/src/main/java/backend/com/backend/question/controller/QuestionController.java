@@ -48,7 +48,7 @@ public class QuestionController {
         URI location =
                 UriComponentsBuilder
                         .newInstance()
-                        .path(QUESTION_DEFAULT_URL + "{question-id}")
+                        .path(QUESTION_DEFAULT_URL + "/{question-id}")
                         .buildAndExpand(question.getId())
                         .toUri(); // "questions/{question-id}"
         return ResponseEntity.created(location).build();
