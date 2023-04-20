@@ -11,5 +11,7 @@ public interface QuestionMapper {
     Question questionPostDtoToQuestion(QuestionDto.Post questionPostDto);
     Question questionPatchDtoToQuestion(QuestionDto.Patch questionPatchDto);
     QuestionDto.Response questionToQuestionResponseDto(Question question);
+    QuestionDto.ResponseWithPage questionToQuestionResponseWithPageDto(Question question);
     List<QuestionDto.Response> questionsToQuestionResponseDtos(List<Question> questions);
+
 }

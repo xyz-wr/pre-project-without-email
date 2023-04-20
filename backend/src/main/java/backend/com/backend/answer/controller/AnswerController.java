@@ -7,7 +7,10 @@ import backend.com.backend.answer.service.AnswerService;
 import backend.com.backend.question.dto.QuestionDto;
 import backend.com.backend.question.entity.Question;
 import backend.com.backend.question.mapper.QuestionMapper;
+import backend.com.backend.question.service.QuestionService;
+import backend.com.backend.response.PageInfo;
 import backend.com.backend.response.QuestionAnswersResponseDto;
+import backend.com.backend.response.SingleResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +29,7 @@ import java.util.stream.Collectors;
 import static java.util.Comparator.comparing;
 
 @RestController
-@RequestMapping("/api1/members/{member-id}/questions/{id}/answers")
+@RequestMapping("/api1/questions/{id}/answers")
 // /users/{user-id}/answers
 @Validated
 @CrossOrigin
@@ -35,13 +38,16 @@ public class AnswerController {
 
     private final static String ANSWER_DEFAULT_URL = "/api1/questions/{id}/answers";
     private final AnswerService answerService;
+
+    private final QuestionService questionService;
     private final AnswerMapper answerMapper;
     private final QuestionMapper questionMapper;
     @Autowired
-    public AnswerController(AnswerService answerService, AnswerMapper amapper, QuestionMapper qmapper) {
+    public AnswerController(AnswerService answerService, QuestionService questionService, AnswerMapper answerMapper, QuestionMapper questionMapper) {
         this.answerService = answerService;
-        this.answerMapper = amapper;
-        this.questionMapper = qmapper;
+        this.questionService = questionService;
+        this.answerMapper = answerMapper;
+        this.questionMapper = questionMapper;
     }
 
     @PostMapping
@@ -49,6 +55,8 @@ public class AnswerController {
                                           @Valid @RequestBody AnswerDto.Post requestBody){
 
             Answer answer = answerMapper.answerPostDtoToAnswer(requestBody);
+            Question relatedQuestion = questionService.findQuestion(questionId);
+            relatedQuestion.setAnswer(answer);
             Answer createdAnswer = answerService.createAnswer(questionId, answer);
 
             URI location = UriComponentsBuilder
@@ -69,7 +77,7 @@ public class AnswerController {
         Answer answer =
                 answerService.updateAnswer(answerMapper.answerPatchDtoToAnswer(requestBody));
 
-        return new ResponseEntity<>(answerMapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(answer)), HttpStatus.OK);
     }
 
 
@@ -91,38 +99,36 @@ public class AnswerController {
             return new ResponseEntity<>(questionResponse, HttpStatus.OK);
         }
         else {
-            if(sortOption == null){
-                List<Answer> answers = answerService.findAnswers(questionId);
-                Page<Answer> pageAnswers = answerService.makePageObject(page -1, size, answers);
-                List<AnswerDto.Response> answerResponses =
-                        answers.stream()
-                                .sorted(comparing(Answer::getId).reversed())
-                                .map(answer -> answerMapper.answerToAnswerResponseDto(answer))
-                                .collect(Collectors.toList());
-                return new ResponseEntity<>(new QuestionAnswersResponseDto<>(questionResponse, answerMapper.answersToAnswerResponseDtos(answers), pageAnswers), HttpStatus.OK);
-            }
+            QuestionDto.ResponseWithPage questionWithPageResponse = questionMapper.questionToQuestionResponseWithPageDto(question);
+            List<Answer> answers = answerService.findAnswers(questionId);
+            Page<Answer> pageAnswers = answerService.makePageObject(page -1, size, answers);
+            //상기의 내용들을 바탕으로 Pageinfo를 구성해준다.
+            PageInfo pageInfo = new PageInfo(page, size, pageAnswers.getTotalElements(), pageAnswers.getTotalPages());
+            questionWithPageResponse.setPageInfos(pageInfo);
 
-            else if(sortOption.equals("newest")){
-                List<Answer> answers = answerService.findAnswers(questionId);
-                Page<Answer> pageAnswers = answerService.makePageObject(page -1, size, answers);
-               //List<Answer> finalAnswers = pageAnswers.getContent();
+            if(sortOption.equals("newest")){
                 List<AnswerDto.Response> answerResponses =
-                        answers.stream()
+                        pageAnswers.getContent().stream()
                                 .sorted(comparing(Answer::getId).reversed())
                                 .map(answer -> answerMapper.answerToAnswerResponseDto(answer))
                                 .collect(Collectors.toList());
-                return new ResponseEntity<>(new QuestionAnswersResponseDto<>(questionResponse, answerMapper.answersToAnswerResponseDtos(answers), pageAnswers), HttpStatus.OK);
+                //정렬된 답변리스폰트Dtos로 질문ResponseDto 필드를 세팅한다.
+                questionWithPageResponse.setAnswers(answerResponses);
+
+                return new ResponseEntity<>(new SingleResponseDto<>(questionWithPageResponse), HttpStatus.OK);
             }
             else if(sortOption.equals("oldest")){
-                List<Answer> answers = answerService.findAnswers(questionId);
-                Page<Answer> pageAnswers = answerService.makePageObject(page -1, size, answers);
                 List<AnswerDto.Response> answerResponses =
-                        answers.stream()
+                        pageAnswers.getContent().stream()
                                 .map(answer -> answerMapper.answerToAnswerResponseDto(answer))
                                 .collect(Collectors.toList());
-                return new ResponseEntity<>(new QuestionAnswersResponseDto<>(questionResponse, answerMapper.answersToAnswerResponseDtos(answers), pageAnswers), HttpStatus.OK);
+                //정렬된 답변리스폰트Dtos로 질문ResponseDto 필드를 세팅한다.
+                questionWithPageResponse.setAnswers(answerResponses);
+                return new ResponseEntity<>(new SingleResponseDto<>(questionWithPageResponse), HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>(questionResponse, HttpStatus.OK);
+        return null;
     }
 }
+
+/**/

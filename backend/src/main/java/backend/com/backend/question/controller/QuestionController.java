@@ -68,13 +68,14 @@ public class QuestionController {
     public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId,
                                       @Positive @RequestParam(defaultValue = "1") int page,
                                       @Positive @RequestParam(defaultValue = "3") int size,
-                                      @RequestParam(required = false) String sortOption) {
+                                      @RequestParam(defaultValue = "newest") String sortOption) {
         Question question = questionService.findQuestion(questionId);
         return answerController.bySortOption(questionId, page, size, sortOption, question);
         //질문컨트롤러에 getQuestion메소드 내부에서 위 로직으로 실행해야 할 듯해.
         //일단 질문이 품고 있는 답변리스트의 size()를 재서 0이면 그냥 response 리턴하면 될테고
         // 0 초과이면 multi리스폰스로 내보내서 질문 한 개에 답변 리스트들을 stream으로 구성해보면 좋겠지
         // postman
+
     }
 
 

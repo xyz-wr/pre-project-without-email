@@ -12,7 +12,7 @@ public class AnswerDto {
     @Getter
     @Setter
     public static class Post {
-        @NotEmpty(message = "답변의 내용을 적어주십시오.")
+        @NotEmpty(message = "답변의 내용을 정확히 기입하십시오")
         private String content;
     }
     @Getter

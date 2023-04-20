@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.comparing;
+
 @Service
 public class AnswerService {
     private final AnswerRepository answerRepository;
@@ -36,9 +38,9 @@ public class AnswerService {
         //답변과 관련된 상위 질문객체를 찾아낸다.
         answer.setQuestion(relatedQuestion);
         //Answer 엔티티의 Quesition필드를 세팅한다.
-        relatedQuestion.setAnswer(answer);
+        //relatedQuestion.setAnswer(answer);
         //vice versa로 상위 질문 엔티티의 Answer 필드를 세팅한다.
-        questionRepository.save(relatedQuestion);
+        //questionRepository.save(relatedQuestion);
         //QuestionRepository객체를 이용해 Question 테이블에 질문 엔티티의 변경사항을 저장한다.
         return answerRepository.save(answer);
         //vice versa로 Answer 테이블에 답변 엔티티의 변경사항을 저장하고 Controller단으로 리턴한다.

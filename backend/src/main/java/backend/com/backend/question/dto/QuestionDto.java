@@ -57,15 +57,16 @@ public class QuestionDto {
         private String body;
         private String details;
         private List<AnswerDto.Response> answers;
-
     }
 
+    @Getter
+    @Setter
     public static class ResponseWithPage {
         private Long id;
         private String title;
         private String body;
         private String details;
         private List<AnswerDto.Response> answers;
-        private List<PageInfo> pageInfo;
+        private PageInfo pageInfos;
     }
 }
