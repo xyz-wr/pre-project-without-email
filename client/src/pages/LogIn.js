@@ -79,37 +79,35 @@ const Styledloginbox = styled.body`
   }
 `;
 
-const LogIn = () => {
+function LogIn() {
   return (
-    <>
-      <main>
-        <Styledlogin>
-          <GoogleButton>
-            <FcGoogle size="19" />
-            Log in with Google
-          </GoogleButton>
-          <GithubButton>
-            <AiFillGithub size="19" />
-            Log in with GitHub
-          </GithubButton>
-          <FacebookButton>
-            <ImFacebook2 size="19" />
-            Log in with Facebook
-          </FacebookButton>
-        </Styledlogin>
+    <main>
+      <Styledlogin>
+        <GoogleButton>
+          <FcGoogle size="19" />
+          Log in with Google
+        </GoogleButton>
+        <GithubButton>
+          <AiFillGithub size="19" />
+          Log in with GitHub
+        </GithubButton>
+        <FacebookButton>
+          <ImFacebook2 size="19" />
+          Log in with Facebook
+        </FacebookButton>
+      </Styledlogin>
 
-        <body>
-          <Styledloginbox>
-            <span>Email</span>
-            <input></input>
-            <span>Password</span>
-            <input></input>
-            <button>Log in</button>
-          </Styledloginbox>
-        </body>
-      </main>
-    </>
+      <body>
+        <Styledloginbox>
+          <span>Email</span>
+          <input />
+          <span>Password</span>
+          <input />
+          <button>Log in</button>
+        </Styledloginbox>
+      </body>
+    </main>
   );
-};
+}
 
 export default LogIn;
