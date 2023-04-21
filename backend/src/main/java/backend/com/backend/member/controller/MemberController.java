@@ -20,6 +20,7 @@ import java.net.URI;
 @Validated
 public class MemberController {
     private final static String MEMBER_DEFAULT_URL = "/members";
+
     private final MemberMapper memberMapper;
     private final MemberService memberService;
 
@@ -28,7 +29,7 @@ public class MemberController {
         this.memberService = memberService;
     }
     @PostMapping
-    public ResponseEntity postMember(@Valid @RequestBody MemberPostDto memberPostDto){
+    public ResponseEntity postUser(@Valid @RequestBody MemberPostDto memberPostDto){
         Member member = memberMapper.MemberPostDtoToMember(memberPostDto);
         Member data= memberService.createMember(member);
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, member.getId());//데이터베이스에 저장된 리소스의 위치를 알려주는 위치 정보

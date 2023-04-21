@@ -26,11 +26,10 @@ import java.util.stream.Collectors;
 import static java.util.Comparator.comparing;
 
 @RestController
-@RequestMapping("/api1/questions")
+@RequestMapping("/questions")
 @Validated
-@CrossOrigin
 public class QuestionController {
-    private final static String QUESTION_DEFAULT_URL = "/api1/questions";
+    private final static String QUESTION_DEFAULT_URL = "/questions";
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
     private final AnswerController answerController;

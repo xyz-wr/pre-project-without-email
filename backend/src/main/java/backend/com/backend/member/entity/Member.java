@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -42,11 +43,11 @@ public class Member extends Auditable {
 //
 //    @OneToMany(mappedBy ="user")
 //    private List<Comment> comment;
-    @OneToMany
-    private List<Question> question;
+    @OneToMany(mappedBy = "member")
+    private List<Question> questions = new ArrayList<>();
 
-    @OneToMany
-    private List<Answer> answer;
+    @OneToMany(mappedBy = "member")
+    private List<Answer> answers = new ArrayList<>();
 
     /*@OneToMany
     private Comment comment;*/

@@ -2,6 +2,7 @@ package backend.com.backend.question.entity;
 
 import backend.com.backend.answer.entity.Answer;
 import backend.com.backend.audit.Auditable;
+import backend.com.backend.member.entity.Member;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,5 +42,8 @@ public class Question extends Auditable {
             answer.setQuestion(this);
         }
     }
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
 }
