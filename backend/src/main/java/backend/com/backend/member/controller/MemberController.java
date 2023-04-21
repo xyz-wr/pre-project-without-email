@@ -18,9 +18,9 @@ import java.net.URI;
 @RestController
 @RequestMapping("/members")
 @Validated
+@CrossOrigin(origins = "*")
 public class MemberController {
     private final static String MEMBER_DEFAULT_URL = "/members";
-
     private final MemberMapper memberMapper;
     private final MemberService memberService;
 
@@ -29,16 +29,16 @@ public class MemberController {
         this.memberService = memberService;
     }
     @PostMapping
-    public ResponseEntity postUser(@Valid @RequestBody MemberPostDto memberPostDto){
+    public ResponseEntity postMember(@Valid @RequestBody MemberPostDto memberPostDto){// 회원가입
         Member member = memberMapper.MemberPostDtoToMember(memberPostDto);
         Member data= memberService.createMember(member);
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, member.getId());//데이터베이스에 저장된 리소스의 위치를 알려주는 위치 정보
         return ResponseEntity.created(location).build();
     }
+
     @PatchMapping("/{member-id}")
     public ResponseEntity patchMember(@PathVariable("member-id") @Positive Long MemberId,
                                     @Valid @RequestBody MemberPatchDto memberPatchDto){
-
         memberPatchDto.setId(MemberId);
         Member member = memberMapper.MemberPatchDtoToMember(memberPatchDto);
         Member data = memberService.updateMember(member);
