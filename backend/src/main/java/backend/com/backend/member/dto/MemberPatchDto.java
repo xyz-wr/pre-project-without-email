@@ -13,7 +13,7 @@ public class MemberPatchDto {
     private String location;
     private int total_questions;
     private int total_answers;
-    private Member.UserStatus user_status;
+    private Member.MemberStatus user_status;
 
     public void setUserid(Long userid) {
         this.userid = userid;
