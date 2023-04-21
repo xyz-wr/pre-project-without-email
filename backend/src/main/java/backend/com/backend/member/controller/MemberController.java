@@ -57,9 +57,9 @@ public class MemberController {
 //        List<User> users = pageusers.getContent();
 //        return null;
 //    }
-    @DeleteMapping("/{user_ID}")
-    public ResponseEntity deleteUser(@PathVariable("user_Id") @Positive Long userID){
-        Member data = memberService.deleteUser(userID);
+    @DeleteMapping("/{user_Id}")
+    public ResponseEntity deleteUser(@PathVariable("user_Id") @Positive Long userId){
+        Member data = memberService.deleteUser(userId);
 
         return new ResponseEntity<>(memberMapper.UserToResponseDto(data),HttpStatus.OK);
     }

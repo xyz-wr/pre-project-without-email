@@ -29,14 +29,13 @@ import java.util.stream.Collectors;
 import static java.util.Comparator.comparing;
 
 @RestController
-@RequestMapping("/api1/questions/{id}/answers")
+@RequestMapping("/questions/{id}/answers")
 // /users/{user-id}/answers
 @Validated
-@CrossOrigin
 @Slf4j
 public class AnswerController {
 
-    private final static String ANSWER_DEFAULT_URL = "/api1/questions/{id}/answers";
+    private final static String ANSWER_DEFAULT_URL = "/questions/{id}/answers";
     private final AnswerService answerService;
 
     private final QuestionService questionService;

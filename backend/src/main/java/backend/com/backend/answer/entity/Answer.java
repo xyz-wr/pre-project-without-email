@@ -23,7 +23,7 @@ public class Answer extends Auditable {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     @JsonBackReference("question-answers")
