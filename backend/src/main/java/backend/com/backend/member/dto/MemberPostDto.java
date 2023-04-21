@@ -1,12 +1,14 @@
 package backend.com.backend.member.dto;
 
 import backend.com.backend.member.entity.Member;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 @Getter
+@AllArgsConstructor
 public class MemberPostDto {
     @NotBlank
     @Email

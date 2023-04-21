@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,7 +34,7 @@ public class Member extends Auditable {
 
     @Enumerated(value=EnumType.STRING)
     @Column(nullable = false)
-    private MemberStatus member_status = MemberStatus.MEMBER_ACTIVE;
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 //    @OneToMany(mappedBy = "user")
 //    private List<Question> question;
 //
@@ -42,11 +43,11 @@ public class Member extends Auditable {
 //
 //    @OneToMany(mappedBy ="user")
 //    private List<Comment> comment;
-    @OneToMany
-    private List<Question> question;
+    @OneToMany(mappedBy = "member")
+    private List<Question> questions = new ArrayList<>();
 
-    @OneToMany
-    private List<Answer> answer;
+    @OneToMany(mappedBy = "member")
+    private List<Answer> answers = new ArrayList<>();
 
     /*@OneToMany
     private Comment comment;*/
@@ -58,10 +59,10 @@ public class Member extends Auditable {
         MEMBER_SLEEP("휴면 상태"),
         MEMBER_QUIT("탈퇴 상태");
         @Getter
-        private String statusDesciption;
+        private String statusDescription;
 
-        MemberStatus(String statusDesciption) {
-            this.statusDesciption = statusDesciption;
+        MemberStatus(String statusDescription) {
+            this.statusDescription = statusDescription;
         }
     }
 }

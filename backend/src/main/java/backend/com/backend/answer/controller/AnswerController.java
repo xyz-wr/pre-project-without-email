@@ -9,8 +9,6 @@ import backend.com.backend.question.entity.Question;
 import backend.com.backend.question.mapper.QuestionMapper;
 import backend.com.backend.question.service.QuestionService;
 import backend.com.backend.response.PageInfo;
-import backend.com.backend.response.QuestionAnswersResponseDto;
-import backend.com.backend.response.SingleResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,14 +27,13 @@ import java.util.stream.Collectors;
 import static java.util.Comparator.comparing;
 
 @RestController
-@RequestMapping("/api1/questions/{id}/answers")
+@RequestMapping("/questions/{id}/answers")
 // /users/{user-id}/answers
 @Validated
-@CrossOrigin
 @Slf4j
 public class AnswerController {
 
-    private final static String ANSWER_DEFAULT_URL = "/api1/questions/{id}/answers";
+    private final static String ANSWER_DEFAULT_URL = "/questions/{id}/answers";
     private final AnswerService answerService;
 
     private final QuestionService questionService;
@@ -77,7 +74,7 @@ public class AnswerController {
         Answer answer =
                 answerService.updateAnswer(answerMapper.answerPatchDtoToAnswer(requestBody));
 
-        return new ResponseEntity<>(new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(answer)), HttpStatus.OK);
+        return new ResponseEntity<>(answerMapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
     }
 
 
@@ -115,7 +112,7 @@ public class AnswerController {
                 //정렬된 답변리스폰트Dtos로 질문ResponseDto 필드를 세팅한다.
                 questionWithPageResponse.setAnswers(answerResponses);
 
-                return new ResponseEntity<>(new SingleResponseDto<>(questionWithPageResponse), HttpStatus.OK);
+                return new ResponseEntity<>(questionWithPageResponse, HttpStatus.OK);
             }
             else if(sortOption.equals("oldest")){
                 List<AnswerDto.Response> answerResponses =
@@ -124,7 +121,7 @@ public class AnswerController {
                                 .collect(Collectors.toList());
                 //정렬된 답변리스폰트Dtos로 질문ResponseDto 필드를 세팅한다.
                 questionWithPageResponse.setAnswers(answerResponses);
-                return new ResponseEntity<>(new SingleResponseDto<>(questionWithPageResponse), HttpStatus.OK);
+                return new ResponseEntity<>(questionWithPageResponse, HttpStatus.OK);
             }
         }
         return null;

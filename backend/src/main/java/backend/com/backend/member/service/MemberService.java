@@ -8,11 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 @Service
-@Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
 
@@ -30,25 +28,24 @@ public class MemberService {
 
     public Member updateMember(Member member){//추가 해야함
         //유저 존재 유무 확인
-        Member findmember = findVerifiedMember(member.getId());
+        Member findMember = findVerifiedMember(member.getId());
 
-        Optional.ofNullable(member.getEmail())
-                .ifPresent(email -> findmember.setEmail(email));
         Optional.ofNullable(member.getFullName())
-                .ifPresent(fullName -> findmember.setFullName(fullName));
+                .ifPresent(fullName -> findMember.setFullName(fullName));
         Optional.ofNullable(member.getDisplayName())
-                .ifPresent(displayName->findmember.setDisplayName(displayName));
-        Optional.ofNullable(member.getPassword())
-                .ifPresent(password->findmember.setPassword(password));
+                .ifPresent(displayName->findMember.setDisplayName(displayName));
         Optional.ofNullable(member.getLocation())
-                .ifPresent(location->findmember.setLocation(location));
+                .ifPresent(location->findMember.setLocation(location));
+        Optional.ofNullable(member.getDisplayName())
+                .ifPresent(displayName->findMember.setDisplayName(displayName));
+        Optional.ofNullable(member.getMemberStatus())
+                .ifPresent(memberStatus->findMember.setMemberStatus(memberStatus));
 
         //추후 수정
 //        finduser.getModifiedAt()
-        return memberRepository.save(findmember);
+        return memberRepository.save(findMember);
 
     }
-    @Transactional(readOnly = true)
     public Member findMember(long userId){
 
         return findVerifiedMember(userId);
@@ -58,18 +55,16 @@ public class MemberService {
     }
     public Member deleteMember(long userId){
         Member finduser = findVerifiedMember(userId);
-        finduser.setMember_status(Member.MemberStatus.MEMBER_QUIT);
+        finduser.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
         return finduser;
     }
-
-    //member Id 검색
     public Member findVerifiedMember(long memberId){
         Optional<Member> optionalMember = memberRepository.findById(memberId);
+        //예외 처리 구현하면 추후 수정해야함.
         Member findMember = optionalMember.orElseThrow(()->
                 new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
-    //member email 존재하는지 검증
     private void verifyExistsEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent())

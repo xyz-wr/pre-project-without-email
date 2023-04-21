@@ -51,6 +51,7 @@ public class QuestionDto {
 
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class Response {
         private Long id;
         private String title;
