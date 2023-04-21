@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class AnswerDto {
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class Post {
         @NotEmpty(message = "답변의 내용을 정확히 기입하십시오")
         private String content;
@@ -24,6 +25,7 @@ public class AnswerDto {
     }
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class Response {
         private long id;
         private String content;

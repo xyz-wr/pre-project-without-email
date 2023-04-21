@@ -1,21 +1,23 @@
 package backend.com.backend.member.dto;
 
 import backend.com.backend.member.entity.Member;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class MemberPatchDto {
-    private long userid;
+    private long id;
     private String email;
-    private String full_name;
-    private String display_name;
+    private String fullName;
+    private String displayName;
     private String password;
     private String location;
-    private int total_questions;
-    private int total_answers;
-    private Member.UserStatus user_status;
+    private int totalQuestions;
+    private int totalAnswers;
+    private Member.MemberStatus memberStatus;
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setId(Long userId) {
+        this.id = userId;
     }
 }

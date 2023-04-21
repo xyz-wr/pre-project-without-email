@@ -22,14 +22,14 @@ public class AnswerService {
     private final QuestionRepository questionRepository;
     private final QuestionService questionService;
     private final CustomBeanUtils<Answer> beanUtils;
+
     @Autowired
     public AnswerService(AnswerRepository answerRepository, QuestionRepository questionRepository, QuestionService questionService, CustomBeanUtils<Answer> beanUtils) {
         this.answerRepository = answerRepository;
         this.questionRepository = questionRepository;
         this.questionService = questionService;
-
+        this.beanUtils = beanUtils;
     }
-
 
 
     public Answer createAnswer(long questionId, Answer answer) {
