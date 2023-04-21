@@ -61,6 +61,6 @@ public class MemberController {
     public ResponseEntity deleteMember(@PathVariable("member-id") @Positive Long memberID){
         Member data = memberService.deleteMember(memberID);
 
-        return new ResponseEntity<>(memberMapper.MemberToResponseDto(data),HttpStatus.OK);
+        return new ResponseEntity<>(memberMapper.MemberToResponseDto(data),HttpStatus.NO_CONTENT);
     }
 }
