@@ -1,16 +1,10 @@
 package backend.com.backend.question.controller;
 
 import backend.com.backend.answer.controller.AnswerController;
-import backend.com.backend.answer.dto.AnswerDto;
-import backend.com.backend.answer.entity.Answer;
-import backend.com.backend.answer.mapper.AnswerMapper;
-import backend.com.backend.answer.service.AnswerService;
 import backend.com.backend.question.dto.QuestionDto;
 import backend.com.backend.question.entity.Question;
 import backend.com.backend.question.mapper.QuestionMapper;
 import backend.com.backend.question.service.QuestionService;
-import backend.com.backend.response.QuestionAnswersResponseDto;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +15,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
 
