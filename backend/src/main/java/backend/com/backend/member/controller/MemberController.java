@@ -29,7 +29,7 @@ public class MemberController {
     }
     @PostMapping
     public ResponseEntity postUser(@Valid @RequestBody MemberPostDto memberPostDto){
-        Member member = memberMapper.PostDtoToUser(memberPostDto);
+        Member member = memberMapper.MemberPostDtoToMember(memberPostDto);
         Member data= memberService.createUser(member);
 
         URI location = UriCreator.createUri(USER_DEFAULT_URL, member.getId());//데이터베이스에 저장된 리소스의 위치를 알려주는 위치 정보
