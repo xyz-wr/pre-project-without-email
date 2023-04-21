@@ -5,17 +5,14 @@ import lombok.Getter;
 
 @Getter
 public class MemberPatchDto {
-    private long userid;
+    private long id;
     private String email;
-    private String full_name;
-    private String display_name;
+    private String displayName;
+    private String fullName;
     private String password;
     private String location;
-    private int total_questions;
-    private int total_answers;
-    private Member.UserStatus user_status;
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setId(long id) {
+        this.id = id;
     }
 }

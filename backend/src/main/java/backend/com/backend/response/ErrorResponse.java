@@ -47,6 +47,11 @@ public class ErrorResponse {
     }
 
 
+    public static ErrorResponse of(HttpStatus badRequest, String message) {
+        return new ErrorResponse(badRequest.value(), message);
+    }
+
+
     public static class FieldError {
         private String field;
         private Object rejectedValue;

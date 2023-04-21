@@ -7,7 +7,7 @@ import lombok.Getter;
 @Builder
 public class MemberResponseDto {
     private String email;
-    private String display_name;
+    private String displayName;
     private String location;
     private int total_questions;
     private int total_answers;

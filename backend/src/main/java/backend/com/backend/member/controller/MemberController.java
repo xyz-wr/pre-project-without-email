@@ -28,16 +28,16 @@ public class MemberController {
         this.memberService = memberService;
     }
     @PostMapping
-    public ResponseEntity postMember(@Valid @RequestBody MemberPostDto memberPostDto){
+    public ResponseEntity postMember(@Valid @RequestBody MemberPostDto memberPostDto){// 회원가입
         Member member = memberMapper.MemberPostDtoToMember(memberPostDto);
         Member data= memberService.createMember(member);
         URI location = UriCreator.createUri(USER_DEFAULT_URL, member.getId());//데이터베이스에 저장된 리소스의 위치를 알려주는 위치 정보
         return ResponseEntity.created(location).build();
     }
-    @PatchMapping("/{member_Id}")
-    public ResponseEntity patchMember(@PathVa riable("member_Id") @Positive Long MemberId,
+    @PatchMapping("/{member_Id}") //@Mapping(value)
+    public ResponseEntity patchMember(@PathVariable("member_Id") @Positive Long MemberId,
                                     @Valid @RequestBody MemberPatchDto memberPatchDto){
-        memberPatchDto.setUserid(MemberId);
+        memberPatchDto.setId(MemberId);
         Member member = memberMapper.MemberPatchDtoToMember(memberPatchDto);
         Member data = memberService.updateMember(member);
 

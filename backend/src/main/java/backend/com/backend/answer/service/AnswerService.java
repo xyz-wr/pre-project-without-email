@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
 
@@ -23,11 +22,11 @@ public class AnswerService {
     private final QuestionService questionService;
     private final CustomBeanUtils<Answer> beanUtils;
     @Autowired
-    public AnswerService(AnswerRepository answerRepository, QuestionRepository questionRepository, QuestionService questionService, CustomBeanUtils<Answer> beanUtils) {
+    public AnswerService(AnswerRepository answerRepository, QuestionRepository questionRepository, QuestionService questionService, CustomBeanUtils<Answer> beanUtils, CustomBeanUtils<Answer> beanUtils1) {
         this.answerRepository = answerRepository;
         this.questionRepository = questionRepository;
         this.questionService = questionService;
-
+        this.beanUtils = beanUtils1;
     }
 
 
