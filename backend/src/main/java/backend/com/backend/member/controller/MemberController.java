@@ -16,10 +16,11 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/members")
 @Validated
 public class MemberController {
-    private final static String USER_DEFAULT_URL = "/users";
+    private final static String MEMBER_DEFAULT_URL = "/members";
+
     private final MemberMapper memberMapper;
     private final MemberService memberService;
 
@@ -31,22 +32,22 @@ public class MemberController {
     public ResponseEntity postUser(@Valid @RequestBody MemberPostDto memberPostDto){
         Member member = memberMapper.MemberPostDtoToMember(memberPostDto);
         Member data= memberService.createMember(member);
-
-        URI location = UriCreator.createUri(USER_DEFAULT_URL, member.getId());//데이터베이스에 저장된 리소스의 위치를 알려주는 위치 정보
+        URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, member.getId());//데이터베이스에 저장된 리소스의 위치를 알려주는 위치 정보
         return ResponseEntity.created(location).build();
     }
-    @PatchMapping("/{user_Id}")
-    public ResponseEntity patchUser(@PathVariable("user_Id") @Positive Long userId,
+    @PatchMapping("/{member-id}")
+    public ResponseEntity patchMember(@PathVariable("member-id") @Positive Long MemberId,
                                     @Valid @RequestBody MemberPatchDto memberPatchDto){
-        memberPatchDto.setUserid(userId);
+
+        memberPatchDto.setId(MemberId);
         Member member = memberMapper.MemberPatchDtoToMember(memberPatchDto);
         Member data = memberService.updateMember(member);
 
         return new ResponseEntity<>(memberMapper.MemberToResponseDto(data),HttpStatus.OK);
     }
-    @GetMapping("/{user_Id}")
-    public ResponseEntity getUser(@PathVariable("user_Id") @Positive Long userId){
-        Member data = memberService.findMember(userId);
+    @GetMapping("/{member-id}")
+    public ResponseEntity getMember(@PathVariable("member-id") @Positive Long memberId){
+        Member data = memberService.findMember(memberId);
 
         return new ResponseEntity<>(memberMapper.MemberToResponseDto(data),HttpStatus.OK);
     }
@@ -57,10 +58,10 @@ public class MemberController {
 //        List<User> users = pageusers.getContent();
 //        return null;
 //    }
-    @DeleteMapping("/{user_Id}")
-    public ResponseEntity deleteUser(@PathVariable("user_Id") @Positive Long userId){
-        Member data = memberService.deleteMember(userId);
+    @DeleteMapping("/{member-id}")
+    public ResponseEntity deleteMember(@PathVariable("member-id") @Positive Long memberID){
+        Member data = memberService.deleteMember(memberID);
 
-        return new ResponseEntity<>(memberMapper.MemberToResponseDto(data),HttpStatus.OK);
+        return new ResponseEntity<>(memberMapper.MemberToResponseDto(data),HttpStatus.NO_CONTENT);
     }
 }

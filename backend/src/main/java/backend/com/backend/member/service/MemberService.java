@@ -28,22 +28,22 @@ public class MemberService {
 
     public Member updateMember(Member member){//추가 해야함
         //유저 존재 유무 확인
-        Member finduser = findVerifiedMember(member.getId());
+        Member findMember = findVerifiedMember(member.getId());
 
         Optional.ofNullable(member.getFullName())
-                .ifPresent(fullName -> finduser.setFullName(fullName));
+                .ifPresent(fullName -> findMember.setFullName(fullName));
         Optional.ofNullable(member.getDisplayName())
-                .ifPresent(displayName->finduser.setDisplayName(displayName));
+                .ifPresent(displayName->findMember.setDisplayName(displayName));
         Optional.ofNullable(member.getLocation())
-                .ifPresent(location->finduser.setLocation(location));
+                .ifPresent(location->findMember.setLocation(location));
         Optional.ofNullable(member.getDisplayName())
-                .ifPresent(displayName->finduser.setDisplayName(displayName));
-        Optional.ofNullable(member.getMember_status())
-                .ifPresent(userStatus->finduser.setMember_status(userStatus));
+                .ifPresent(displayName->findMember.setDisplayName(displayName));
+        Optional.ofNullable(member.getMemberStatus())
+                .ifPresent(memberStatus->findMember.setMemberStatus(memberStatus));
 
         //추후 수정
 //        finduser.getModifiedAt()
-        return memberRepository.save(finduser);
+        return memberRepository.save(findMember);
 
     }
     public Member findMember(long userId){
@@ -55,7 +55,7 @@ public class MemberService {
     }
     public Member deleteMember(long userId){
         Member finduser = findVerifiedMember(userId);
-        finduser.setMember_status(Member.MemberStatus.MEMBER_QUIT);
+        finduser.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
         return finduser;
     }
     public Member findVerifiedMember(long memberId){
