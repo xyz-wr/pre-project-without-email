@@ -27,9 +27,8 @@ public class AnswerService {
         this.answerRepository = answerRepository;
         this.questionRepository = questionRepository;
         this.questionService = questionService;
-        this.beanUtils = beanUtils;
-    }
 
+    }
 
 
 

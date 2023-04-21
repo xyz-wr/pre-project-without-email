@@ -26,6 +26,8 @@ public class Answer extends Auditable {
     @JoinColumn(name = "USER_ID")
     private Member member;
 
+
+
     @JsonBackReference("question-answers")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "QUESTION_ID")
