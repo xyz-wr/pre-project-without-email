@@ -24,6 +24,7 @@ public class AnswerDto {
     }
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class Response {
         private long id;
         private String content;

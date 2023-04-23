@@ -13,7 +13,7 @@ import java.util.List;
 
 public class QuestionDto {
     @Getter
-    @AllArgsConstructor
+    @Setter
     public static class Post {
         @NotBlank(message = "Title is missing")
         @Size(min = 15, max = 150,  message = "Title must be at least 15 characters and cannot be longer than 150 characters")
@@ -22,14 +22,11 @@ public class QuestionDto {
         @NotBlank(message = "Body is missing.")
         private String body;
 
-        @NotBlank(message = "Detail is missing.")
-        private String details;
-
 
     }
 
     @Getter
-    @AllArgsConstructor
+    @Setter
     public static class Patch {
         private Long id;
 
@@ -39,10 +36,6 @@ public class QuestionDto {
 
         @NotBlank(message = "Body is missing.")
         private String body;
-
-        @NotBlank(message = "Detail is missing.")
-        private String details;
-
 
         public void setQuestionId(long id) {
             this.id = id;
@@ -56,17 +49,16 @@ public class QuestionDto {
         private Long id;
         private String title;
         private String body;
-        private String details;
         private List<AnswerDto.Response> answers;
     }
 
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class ResponseWithPage {
         private Long id;
         private String title;
         private String body;
-        private String details;
         private List<AnswerDto.Response> answers;
         private PageInfo pageInfos;
     }

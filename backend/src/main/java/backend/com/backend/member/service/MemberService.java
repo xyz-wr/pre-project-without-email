@@ -8,8 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+@Transactional
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
@@ -46,6 +48,7 @@ public class MemberService {
         return memberRepository.save(findMember);
 
     }
+    @Transactional(readOnly = true)
     public Member findMember(long userId){
 
         return findVerifiedMember(userId);
@@ -58,6 +61,7 @@ public class MemberService {
         finduser.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
         return finduser;
     }
+    @Transactional(readOnly = true)
     public Member findVerifiedMember(long memberId){
         Optional<Member> optionalMember = memberRepository.findById(memberId);
         //예외 처리 구현하면 추후 수정해야함.

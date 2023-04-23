@@ -16,11 +16,10 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
 
-import static java.util.Comparator.comparing;
-
 @RestController
 @RequestMapping("/questions")
 @Validated
+@CrossOrigin(origins = "*")
 public class QuestionController {
     private final static String QUESTION_DEFAULT_URL = "/questions";
     private final QuestionService questionService;

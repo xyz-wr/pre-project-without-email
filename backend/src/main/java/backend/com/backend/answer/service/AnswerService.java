@@ -9,12 +9,13 @@ import backend.com.backend.utils.CustomBeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Comparator.comparing;
-
+@Transactional
 @Service
 public class AnswerService {
     private final AnswerRepository answerRepository;
