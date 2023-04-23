@@ -31,6 +31,7 @@ import static java.util.Comparator.comparing;
 // /users/{user-id}/answers
 @Validated
 @Slf4j
+@CrossOrigin(origins = "*")
 public class AnswerController {
 
     private final static String ANSWER_DEFAULT_URL = "/questions/{id}/answers";

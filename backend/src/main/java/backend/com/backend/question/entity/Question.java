@@ -25,11 +25,8 @@ public class Question extends Auditable {
     @Column(length = 500, nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 5000)
     private String body;
-
-    @Column(nullable = false)
-    private String details;
 
     @JsonManagedReference("question-answers")
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
