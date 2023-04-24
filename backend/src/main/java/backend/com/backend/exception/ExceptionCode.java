@@ -8,7 +8,8 @@ public enum ExceptionCode {
     ANSWER_NOT_FOUND(404, "Answer Not Found"), //존재하지 않는 답변
     MEMBER_EXISTS(409, "Member exists"),
     QUESTION_EXISTS(409,"Question exists"),
-    ANSWER_EXISTS(409,"ANSWER exists");
+    ANSWER_EXISTS(409,"ANSWER exists"),
+    COMMENT_NOT_FOUND(404, "Comment Not Found");
     @Getter
     private final int status;
 

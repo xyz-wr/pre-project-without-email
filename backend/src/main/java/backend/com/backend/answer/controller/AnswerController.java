@@ -55,7 +55,7 @@ public class AnswerController {
             Answer answer = answerMapper.answerPostDtoToAnswer(requestBody);
             Question relatedQuestion = questionService.findQuestion(questionId);
             relatedQuestion.setAnswer(answer);
-            Answer createdAnswer = answerService.createAnswer(questionId, answer);
+            Answer createdAnswer = answerService.createAnswer(answer);
 
             URI location = UriComponentsBuilder
                     .newInstance()
@@ -75,6 +75,12 @@ public class AnswerController {
         Answer answer =
                 answerService.updateAnswer(answerMapper.answerPatchDtoToAnswer(requestBody));
 
+        return new ResponseEntity<>(answerMapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
+    }
+
+    @GetMapping("/{answer-id}")
+    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId) {
+        Answer answer = answerService.findAnswer(answerId);
         return new ResponseEntity<>(answerMapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
     }
 

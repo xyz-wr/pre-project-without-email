@@ -32,6 +32,10 @@ public class Member extends Auditable {
     @Column(updatable = false)
     private String location;
 
+    @Column
+    private int totalQuestions;
+    @Column
+    private int totalAnswers;
     @Enumerated(value=EnumType.STRING)
     @Column(nullable = false)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
@@ -46,9 +50,21 @@ public class Member extends Auditable {
     @OneToMany(mappedBy = "member")
     private List<Question> questions = new ArrayList<>();
 
+    public void setQuestion(Question question) {
+        questions.add(question);
+        if(question.getMember() != this){
+            question.setMember(this);
+        }
+    }
     @OneToMany(mappedBy = "member")
     private List<Answer> answers = new ArrayList<>();
 
+    public void setAnswer(Answer answer) {
+        answers.add(answer);
+        if(answer.getMember() != this){
+            answer.setMember(this);
+        }
+    }
     /*@OneToMany
     private Comment comment;*/
 

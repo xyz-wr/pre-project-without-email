@@ -1,12 +1,14 @@
 package backend.com.backend.answer.dto;
 
 
+import backend.com.backend.comment.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class AnswerDto {
     @Getter
@@ -28,6 +30,7 @@ public class AnswerDto {
     public static class Response {
         private long id;
         private String content;
+        private List<Comment> comments;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
     }

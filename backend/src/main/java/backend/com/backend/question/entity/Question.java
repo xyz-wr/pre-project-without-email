@@ -25,7 +25,7 @@ public class Question extends Auditable {
     @Column(length = 500, nullable = false)
     private String title;
 
-    @Column(nullable = false, length = 5000)
+    @Column(nullable = false, length = 7000)
     private String body;
 
     @JsonManagedReference("question-answers")
