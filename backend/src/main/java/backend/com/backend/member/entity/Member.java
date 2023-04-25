@@ -9,7 +9,9 @@ import backend.com.backend.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Member extends Auditable {
+public class Member extends Auditable implements Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -47,6 +49,31 @@ public class Member extends Auditable {
 //
 //    @OneToMany(mappedBy ="user")
 //    private List<Comment> comment;
+
+    // (1) User의 권한 정보 테이블과 매핑되는 정보
+    @ElementCollection(fetch = FetchType.EAGER) //연관 테이블 자동 생성
+    private List<String> roles = new ArrayList<>();
+
+    public Member(String email) {
+        this.email = email;
+    }
+
+    public Member(String email, String fullName, String password) {
+        this.email = email;
+        this.fullName= fullName;
+        this.password = password;
+    }
+
+    @Override
+    public String getName() {
+        return getEmail();
+    }
+
+    public enum MemberRole {
+        ROLE_USER,
+        ROLE_ADMIN
+    }
+
     @OneToMany(mappedBy = "member")
     private List<Question> questions = new ArrayList<>();
 

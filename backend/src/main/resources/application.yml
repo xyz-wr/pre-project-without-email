@@ -22,3 +22,8 @@ logging:
     org:
       springframework:
         web=DEBUG:
+server:
+  port: 8070
+mail:
+  address:
+    admin: admin@gmail.com
