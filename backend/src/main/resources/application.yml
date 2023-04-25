@@ -17,3 +17,8 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true  # ??? ?? ??? ?? ??
+logging:
+  level:
+    org:
+      springframework:
+        web=DEBUG:
